@@ -6,8 +6,7 @@ import java.io.InputStreamReader;
 public class Reading implements Runnable{
     private final String PATH = "src/main/resources/exemplo.html" ;
     private StringBuilder urls = new StringBuilder();
-    private Writing writing = new Writing();
-    Thread thread = new Thread(writing);
+
 
     @Override
     public void run() {
@@ -20,6 +19,8 @@ public class Reading implements Runnable{
                     int indiceFinal = linha.indexOf("\"", indiceInicial+ caracteresIntermediarios);
                     String url = linha.substring(indiceInicial + caracteresIntermediarios, indiceFinal);
                     urls.append(url).append(";");
+                    Writing writing = new Writing(url);
+                    Thread thread = new Thread(writing);
                     thread.run();
                 }
                 linha = br.readLine();
