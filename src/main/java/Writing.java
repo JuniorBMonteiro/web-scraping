@@ -10,7 +10,8 @@ public class Writing implements Runnable {
     }
 
     @Override
-    public void run() {
+    public synchronized void run() {
+        System.out.println(Thread.currentThread().getName());
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(FILE, true))){
             bw.write(url);
             bw.newLine();
