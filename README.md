@@ -2,8 +2,6 @@
 
 ## Descrição
 
-Nesse exercício de Java Aprofundado você vai precisar um simples Web Scraping utilizando seus conhecimentos aprendidos na trilha de Java Aprofundado.
-
 ### O que é um Web Scraping?
 
 Um software de coleta de dados da Web que permite a extração de dados de um site para estruturar essa informação para ser analisada futuramente.
