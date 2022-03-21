@@ -2,21 +2,30 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Reading implements Runnable {
-    private final String PATH = "src/main/resources/exemplo.html";
+    private String path;
+    private List<String> urls = Collections.synchronizedList(new ArrayList<>());
     private final ExecutorService threadPool = Executors.newFixedThreadPool(5);
+    private Writing writing = new Writing(urls);
+
+    public Reading(String path) {
+        this.path = path;
+    }
 
     @Override
     public void run() {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(PATH)))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path)))) {
             String linha = br.readLine();
             while (linha != null) {
                 String url = separaUrl(linha);
                 if (url.contains("http")) {
-                    Writing writing = new Writing(url);
+                    urls.add(url);
                     threadPool.execute(writing);
                 }
                 linha = br.readLine();
