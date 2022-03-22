@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Writing implements Runnable {
     private final String FILE = "src/main/resources/url.csv";
-    private List<String> url;
+    private final List<String> url;
 
     public Writing(List<String> url) {
         this.url = url;
@@ -12,9 +12,9 @@ public class Writing implements Runnable {
 
     @Override
     public synchronized void run() {
-        System.out.println(Thread.currentThread().getName());
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(FILE, true))){
-            bw.write(url.get(url.size() -1));
+            bw.write(url.get(0));
+            url.remove(0);
             bw.newLine();
         }catch (Exception e) {
             e.printStackTrace();
