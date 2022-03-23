@@ -14,8 +14,8 @@ public class Writing implements Runnable {
     public synchronized void run() {
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(FILE, true))){
             bw.write(url.get(0));
+            bw.write(";");
             url.remove(0);
-            bw.newLine();
         }catch (Exception e) {
             e.printStackTrace();
         }
